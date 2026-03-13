@@ -43,3 +43,6 @@ build/
 .git/
 .vscode/
 cmd.md
+build-ninja/
+build-*/
+

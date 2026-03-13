@@ -3,12 +3,12 @@
 #include <vix/ai/tensor/Engine.hpp>
 #include <vix/ai/tensor/Tensor.hpp>
 
+using namespace vix::ai::tensor;
+
 int main()
 {
-  using namespace vix::ai::tensor;
   std::cout << "vix_ai_tensor version: " << version() << "\n";
-  Engine engine{Device{}};    // CPU
-  Tensor t{{1, 3, 224, 224}}; // NCHW fictif
-  std::cout << "rank=" << t.rank() << ", msg=" << engine.compute(t) << "\n";
-  return 0;
+  Tensor t({2, 2, 2});
+  Engine e{Device::from_string("cpu")};
+  std::cout << e.compute(t) << "\n";
 }

@@ -14,22 +14,23 @@ if (NOT VIX_AI_BUILD_EXAMPLES)
   return()
 endif()
 
-message(STATUS "Building Vix.AI.ML examples")
+message(STATUS "Building Vix.ai.ML examples")
 
-if (NOT TARGET Vix::AI::ml)
-  message(STATUS "Skipping ML examples (Vix::AI::ml not found)")
+# Vérifie que la lib existe
+if (NOT TARGET Vix::ai::ml)
+  message(STATUS "Skipping ML examples (Vix::ai::ml not found)")
   return()
 endif()
 
 # 1) Exemple: regression + clustering
 add_executable(vix_ai_example_ml_regression_kmeans 02_regression_kmeans.cpp)
 target_compile_features(vix_ai_example_ml_regression_kmeans PRIVATE cxx_std_20)
-target_link_libraries(vix_ai_example_ml_regression_kmeans PRIVATE Vix::AI::ml)
-if (TARGET Vix::AI::core)
-  target_link_libraries(vix_ai_example_ml_regression_kmeans PRIVATE Vix::AI::core)
+target_link_libraries(vix_ai_example_ml_regression_kmeans PRIVATE Vix::ai::ml)
+if (TARGET Vix::ai::tensor)
+  target_link_libraries(vix_ai_example_ml_regression_kmeans PRIVATE Vix::ai::tensor)
 endif()
 
-# 2) Ne pas redéfinir les tests: ils vivent dans vix-ai-ml/tests
+# 2) Ne pas redéfinir les tests: ils vivent dans ml/tests
 if (TARGET vix_ai_ml_smoke_test)
   message(STATUS "Target vix_ai_ml_smoke_test already defined (from tests) — skipping here.")
 endif()
@@ -44,5 +45,4 @@ add_custom_target(run_ml_example
   COMMENT "Running ML regression+kmeans example"
 )
 
-message(STATUS "Vix.AI.ML example configured successfully.")
-
+message(STATUS "Vix.ai.ML example configured successfully.")

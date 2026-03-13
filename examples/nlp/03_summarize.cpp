@@ -5,7 +5,7 @@ using namespace vix::ai::nlp;
 
 int main()
 {
-    Pipeline p;
-    std::string s = "Mini demo text.";
-    std::cout << "summary: " << p.summarize(s) << "\n";
+  Pipeline p;
+  std::string s = "Mini demo text.";
+  std::cout << "summary: " << p.summarize(s) << "\n";
 }
