@@ -1,28 +1,29 @@
-[submodule "vix-ai-ml"]
-	path = vix-ai-ml
-	url = git@github.com:vixcpp/vix-ai-ml.git
+[submodule "tensor"]
+	path = tensor
+	url = git@github.com:vixcpp/tensor.git
 	branch = dev
-[submodule "vix-ai-cli"]
-	path = vix-ai-cli
-	url = git@github.com:vixcpp/vix-ai-cli.git
+
+[submodule "ml"]
+	path = ml
+	url = git@github.com:vixcpp/ml.git
 	branch = dev
-[submodule "vix-ai-core"]
-	path = vix-ai-core
-	url = git@github.com:vixcpp/vix-ai-core.git
+
+[submodule "distributed"]
+	path = distributed
+	url = git@github.com:vixcpp/distributed.git
 	branch = dev
-[submodule "vix-ai-distributed"]
-	path = vix-ai-distributed
-	url = git@github.com:vixcpp/vix-ai-distributed.git
+
+[submodule "nn"]
+	path = nn
+	url = git@github.com:vixcpp/nn.git
 	branch = dev
-[submodule "vix-ai-nn"]
-	path = vix-ai-nn
-	url = git@github.com:vixcpp/vix-ai-nn.git
+
+[submodule "nlp"]
+	path = nlp
+	url = git@github.com:vixcpp/nlp.git
 	branch = dev
-[submodule "vix-ai-nlp"]
-	path = vix-ai-nlp
-	url = git@github.com:vixcpp/vix-ai-nlp.git
-	branch = dev
-[submodule "vix-ai-vision"]
-	path = vix-ai-vision
-	url = git@github.com:vixcpp/vix-ai-vision.git
+
+[submodule "vision"]
+	path = vision
+	url = git@github.com:vixcpp/vision.git
 	branch = dev
