@@ -102,39 +102,33 @@ ctest --output-on-failure
 using namespace vix::ai::ml;
 
 int main() {
+    Mat X = { {1},{2},{3},{4},{5} };
+    Vec y = {3,5,7,9,11};
 
-  Mat X = {
-    {1}, {2}, {3}, {4}, {5}
-  };
+    LinearRegression lr;
+    lr.fit(X, y);
 
-  Vec y = {
-    3, 5, 7, 9, 11
-  };
-
-  LinearRegression lr;
-  lr.fit(X, y);
-
-  auto pred = lr.predict({{6}});
-
-  std::cout << "Prediction: " << pred[0] << "\n";
+    Vec pred = lr.predict({{6}});
+    std::cout << "Prediction for 6: " << pred[0] << "\n";
 }
 ```
 
 ### Example: Clustering
 ```cpp
 #include <vix/ai/ml/Clustering.hpp>
+#include <iostream>
 
 using namespace vix::ai::ml;
 
 int main() {
+    Mat data = { {1,1},{1.2,1.1},{5,5},{5.2,4.9} };
 
-  Mat data = {
-    {1,1},{1.2,1.1},{5,5},{5.2,4.9}
-  };
+    KMeans km(2);
+    km.fit(data);
 
-  KMeans km(2);
-  km.fit(data);
-
+    std::cout << "Centers:\n";
+    for (auto &c : km.centers())
+        std::cout << "  [" << c[0] << ", " << c[1] << "]\n";
 }
 ```
 

@@ -1,30 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 
-#[[
-===============================================================================
-Vix AI - Umbrella CMake Project
-===============================================================================
-This is the top-level build configuration for the **Vix.AI** ecosystem.
-
-It aggregates multiple AI-oriented C++ modules developed under the Vix project:
-  • tensor         — Core tensor, device & engine primitives
-  • ml             — Machine learning utilities and algorithms
-  • nn             — Neural network primitives
-  • nlp            — Natural language processing tools
-  • vision         — Computer vision components
-  • distributed    — Distributed / parallel computing
-
-Each subproject can be built or skipped independently using -DVIX_AI_BUILD_* options.
-This structure allows modular development and incremental builds while providing
-a unified installation and package configuration (`find_package(vix_ai CONFIG)`).
-
-Usage:
-  cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DVIX_AI_BUILD_TENSOR=ON
-  cmake --build build
-  cmake --install build --prefix /usr/local
-===============================================================================
-]]
-
 project(vix_ai
   VERSION 0.1.0
   DESCRIPTION "Vix AI umbrella: tensor, ml, nn, nlp, vision, distributed"
@@ -79,25 +54,26 @@ endif()
 
 # ---- Meta target linking all available modules -----------------------------
 add_library(vix_ai_all INTERFACE)
-add_library(Vix::AI::all ALIAS vix_ai_all)
+add_library(vix::ai::all ALIAS vix_ai_all)
 
-if (TARGET Vix::ai::tensor)
-  target_link_libraries(vix_ai_all INTERFACE Vix::ai::tensor)
+# Lier uniquement les modules qui existent
+if (TARGET vix_ai_tensor)
+  target_link_libraries(vix_ai_all INTERFACE vix_ai_tensor)
 endif()
-if (TARGET Vix::ai::ml)
-  target_link_libraries(vix_ai_all INTERFACE Vix::ai::ml)
+if (TARGET vix_ai_ml)
+  target_link_libraries(vix_ai_all INTERFACE vix_ai_ml)
 endif()
-if (TARGET Vix::ai::nn)
-  target_link_libraries(vix_ai_all INTERFACE Vix::ai::nn)
+if (TARGET vix_ai_nn)
+  target_link_libraries(vix_ai_all INTERFACE vix_ai_nn)
 endif()
-if (TARGET Vix::ai::nlp)
-  target_link_libraries(vix_ai_all INTERFACE Vix::ai::nlp)
+if (TARGET vix_ai_nlp)
+  target_link_libraries(vix_ai_all INTERFACE vix_ai_nlp)
 endif()
-if (TARGET Vix::ai::vision)
-  target_link_libraries(vix_ai_all INTERFACE Vix::ai::vision)
+if (TARGET vix_ai_vision)
+  target_link_libraries(vix_ai_all INTERFACE vix_ai_vision)
 endif()
-if (TARGET Vix::ai::distributed)
-  target_link_libraries(vix_ai_all INTERFACE Vix::ai::distributed)
+if (TARGET vix_ai_distributed)
+  target_link_libraries(vix_ai_all INTERFACE vix_ai_distributed)
 endif()
 
 # ---- Installation and Package Export ---------------------------------------
@@ -105,13 +81,19 @@ if (VIX_AI_INSTALL)
   include(GNUInstallDirs)
   include(CMakePackageConfigHelpers)
 
-  install(TARGETS vix_ai_all
-    EXPORT vix_aiTargets
-  )
+  # Installer chaque module individuellement s'il existe
+  foreach(_mod IN ITEMS tensor ml nn nlp vision distributed)
+    if (TARGET vix_ai_${_mod})
+      install(TARGETS vix_ai_${_mod}
+        EXPORT vix_aiTargets
+      )
+    endif()
+  endforeach()
 
+  # Installer l'export global
   install(EXPORT vix_aiTargets
     FILE vix_aiTargets.cmake
-    NAMESPACE Vix::AI::
+    NAMESPACE vix::ai::
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/vix_ai
   )
 
