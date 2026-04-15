@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/vix_aiTargets.cmake")
+
+check_required_components(vix_ai)
